@@ -9,7 +9,7 @@
                 <b-nav-item href="#"><router-link to="/">Home</router-link></b-nav-item>
             </b-navbar-nav>
              <b-navbar-nav>
-                <b-nav-item href="#"><router-link to="team-board">Teem</router-link></b-nav-item>
+                <b-nav-item href="#"><router-link to="team-board">Team</router-link></b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
@@ -21,8 +21,7 @@
             </b-navbar-nav>
             </b-collapse>
         </b-navbar>
-         
-        
+
     </div>
 </template>
 

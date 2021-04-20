@@ -1,5 +1,5 @@
 <template>
-  <div id="member-card" class="col-xs-12 col-sm-6 col-md-4">
+  <div id="member-card"  class="col-xs-12 col-sm-6 col-md-4">
     <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
       <div class="mainflip">
         <div class="frontside">
@@ -20,18 +20,19 @@
               >
                 {{ task.taskText }}
               </p>
-              
             </div>
           </div>
         </div>
-        <div class="backside">
+        <div :class="cardStyle" @mouseleave="cardStyle = 'backside'" v-on:click="cardPicked()">
           <div class="card">
             <div class="card-body text-center mt-4">
-              <h4 class="card-title">כותרת של משימה ראשית</h4>
+              <!-- <div v-for="task in member.preTasks" :key="task.id">
+                <h4 class="card-title">{{task.taskText}}</h4>
+                <p class="card-text">תת משימה</p>
+              </div> -->
+
               <p class="card-text">כאן נכניס אפרות להוסיף ולמחוק משימות</p>
-              <h4 class="card-title">כותרת של משימה ראשית</h4>
-              <p class="card-text">כאן נכניס אפרות להוסיף ולמחוק משימות</p>
-              <br/>
+
               <p class="card-text">
                 --בלחיצה על חלון זה החלון יתרחב לFULL SCREEN--
               </p>
@@ -47,7 +48,9 @@
 export default {
   name: "TeamMemberCard",
   data() {
-    return {};
+    return {
+      cardStyle: "backside",
+    };
   },
   methods: {
     getImgUrl(picname) {
@@ -55,6 +58,11 @@ export default {
       // need to return "no img" pic in case that the file dosent exists :(
       // for example  ==link== >>    data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0HDQ0ICA0OCAgICA0NCAcIDQ8ICQcNFREWFhURExMYKCggGBolGxMTIT0hJSkrLi4uFx8zOTMsNygtLysBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEBAAMBAQEAAAAAAAAAAAAAAQIEBQYDB//EADcQAQACAQAFCAkEAQUAAAAAAAABAgMEBRESUhUhMTJBkaKxBlFTYXFyc7LREyIzNCMUQoGC4f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD9BEUAABAABQQUARQEFAAAAAAAAAAAAAAAAAQFAAAAAAAAAABFEBQAAAAAAAAAAAAAAARUUAAAAAAAAAABFAAAAAAAAAAAAAAAAARUUAAAAAAAAAABFQFAAAAAAAAAAAAAAABFRQAAAAAAAI5+btnoj1gC7luG3dJuW4bd0ggu5bhnuk3LcM90ggu5bhnuk3LcNu6QQXctwz3Sk1mOmJj3zEwAIoAAAAAAAAAAIqAKIAogCiADs+j9I2ZL7P3bYrFu2IcZ2/R/q5PqR5A3M2sMOG048l929dm9G7adnNt7IYcqaP7TwX/Dj62/sZPjX7Ibmg6prekZM8ztvG2uOs7sVjs2+8G5ypo/tPBf8HKmj+08F/w5es9X/wCk2ZMczbFadn7utSWgD0fKmj+08F/wcqaP7TwX/Dzj7ZdGvipTLeNlMvV9cerb8Qd3lTR/aeC/4bGO9NKpvV/yYr7Y54mIt2TzS8m9Hqb+CnzX+6QeeyV3bWrHRW8xH/Eozzde/wBS3nLAAAAAAAAAAAEAAAAABQAHa9H+rk+ePJxHb9H+rk+ePIGhrb+xk+Nfsh1dA1hjyY61vauPJSsRat5iu3Z2w5Wtv7GT41+yGtXFa9bXrWZpj2b9o6KbQdPXOm0y1jBinf2W3r3rz1j3Q1tA1fbS4m8z+njiJittm3ft+GOr9DnS7bOrir/JePKPe9JSkY4ilI3a1jZWsdEQDiav1ZackzpFd2mG3Vnoy293rh2NIw10ilsV+raOntrPZMPoA8nnxWwWtivzWpOyfVPvd/U38FPmv90vnrnRP1q/rUj/ACYo54jpvX/x9NTfwU+a/wB0g4Gbr3+pbzYM83Xv9S3mwAAAAAAAAAAAAAAAAAABHb9H+rk+ePJxHb9H+rk+ePIGlrKk5dJvSkbbXtSKx/1h3NE0aujY4xRz8c8c9stTLoeaM99JwzjjfiIr+rvTNY2RE+TPc0zjw91gbeLFXDG5jrFK7ZndrzQzaO7pnHh7rG7pnHh7rA3ho7mmceHusbmmceHusDdt0T8Jaepv69Pjb7pSaaZPNv4ef3WfbV+CdGxVxXmJtWbbZrtmOedoPN5uvf6lvOWDPN17/Ut5sAAAAAAAAAAAAAAAAAAARsaJpd9EmbY9kxaP3Utz1s+ADp8t5OCniOWsnBTxOYA6fLWTgp4jlrJwU8TmAOny1k4KeI5aycFPE5gDp8tZOCniY5NcZbxNaxWkz/vrE70fBzgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/9k=
       return images("./" + picname + ".jpeg");
+    },
+    cardPicked() {
+      this.cardStyle =
+        this.cardStyle == "backside grow" ? "backside" : "backside grow";
+      console.log(this.cardStyle);
     },
   },
   props: {
@@ -88,8 +96,7 @@ export default {
   background: #ffffff;
 }
 
-.image-flip:hover .backside,
-.image-flip.hover .backside {
+.image-flip:hover .backside {
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
@@ -98,8 +105,12 @@ export default {
   border-radius: 0.25rem;
 }
 
-.image-flip:hover .frontside,
-.image-flip.hover .frontside {
+.image-flip:hover .grow {
+  transform: scale(1.11);
+  transition: 0.2s;
+}
+
+.image-flip:hover .frontside {
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
@@ -120,9 +131,9 @@ export default {
 }
 
 .frontside {
-  position: relative;
+  /* position: relative;
   -webkit-transform: rotateY(0deg);
-  -ms-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg); */
   z-index: 2;
   margin-bottom: 30px;
 }
@@ -141,6 +152,14 @@ export default {
   -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
   box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
 }
+
+/* .grow .backside,
+.grow .backside {
+  border-radius: 0.25rem;
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+} */
 
 .frontside,
 .backside {

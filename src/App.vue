@@ -3,20 +3,26 @@
     <div id="nav">
       <navbar></navbar>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import navbar from "@/components/Navbar";
 export default {
+  name: "App",
+  
   components: {
-    navbar
-  }
-}
+    navbar,
+  },
+  mounted() {
+    
+  },
+  methods: {
+  },
+};
 </script>
 <style>
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,6 +30,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-
 </style>

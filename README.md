@@ -1,4 +1,4 @@
-# stand-up
+# stand-app
 
 ## Project setup
 ```
