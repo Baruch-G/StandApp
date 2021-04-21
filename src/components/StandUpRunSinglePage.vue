@@ -1,6 +1,6 @@
 <template>
   <div id="page" class="card mb-3">
-    <img :src="pic" alt="Card image cap" />
+    <img :src="getImgUrl(pic)" alt="Card image cap" />
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <p class="card-text">
@@ -30,6 +30,14 @@ export default {
   mounted() {
     //document.body.className = "block";
     // document.body.classList.remove("block");
+  },
+  methods: {
+    getImgUrl(picname) {
+      var images = require.context("../assets/images/", false, /\.jpeg$/);
+      // need to return "no img" pic in case that the file dosent exists :(
+      // for example  ==link== >>    data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0HDQ0ICA0OCAgICA0NCAcIDQ8ICQcNFREWFhURExMYKCggGBolGxMTIT0hJSkrLi4uFx8zOTMsNygtLysBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEBAAMBAQEAAAAAAAAAAAAAAQIEBQYDB//EADcQAQACAQAFCAkEAQUAAAAAAAABAgMEBRESUhUhMTJBkaKxBlFTYXFyc7LREyIzNCMUQoGC4f/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD9BEUAABAABQQUARQEFAAAAAAAAAAAAAAAAAQFAAAAAAAAAABFEBQAAAAAAAAAAAAAAARUUAAAAAAAAAABFAAAAAAAAAAAAAAAAARUUAAAAAAAAAABFQFAAAAAAAAAAAAAAABFRQAAAAAAAI5+btnoj1gC7luG3dJuW4bd0ggu5bhnuk3LcM90ggu5bhnuk3LcNu6QQXctwz3Sk1mOmJj3zEwAIoAAAAAAAAAAIqAKIAogCiADs+j9I2ZL7P3bYrFu2IcZ2/R/q5PqR5A3M2sMOG048l929dm9G7adnNt7IYcqaP7TwX/Dj62/sZPjX7Ibmg6prekZM8ztvG2uOs7sVjs2+8G5ypo/tPBf8HKmj+08F/w5es9X/wCk2ZMczbFadn7utSWgD0fKmj+08F/wcqaP7TwX/Dzj7ZdGvipTLeNlMvV9cerb8Qd3lTR/aeC/4bGO9NKpvV/yYr7Y54mIt2TzS8m9Hqb+CnzX+6QeeyV3bWrHRW8xH/Eozzde/wBS3nLAAAAAAAAAAAEAAAAABQAHa9H+rk+ePJxHb9H+rk+ePIGhrb+xk+Nfsh1dA1hjyY61vauPJSsRat5iu3Z2w5Wtv7GT41+yGtXFa9bXrWZpj2b9o6KbQdPXOm0y1jBinf2W3r3rz1j3Q1tA1fbS4m8z+njiJittm3ft+GOr9DnS7bOrir/JePKPe9JSkY4ilI3a1jZWsdEQDiav1ZackzpFd2mG3Vnoy293rh2NIw10ilsV+raOntrPZMPoA8nnxWwWtivzWpOyfVPvd/U38FPmv90vnrnRP1q/rUj/ACYo54jpvX/x9NTfwU+a/wB0g4Gbr3+pbzYM83Xv9S3mwAAAAAAAAAAAAAAAAAABHb9H+rk+ePJxHb9H+rk+ePIGlrKk5dJvSkbbXtSKx/1h3NE0aujY4xRz8c8c9stTLoeaM99JwzjjfiIr+rvTNY2RE+TPc0zjw91gbeLFXDG5jrFK7ZndrzQzaO7pnHh7rG7pnHh7rA3ho7mmceHusbmmceHusDdt0T8Jaepv69Pjb7pSaaZPNv4ef3WfbV+CdGxVxXmJtWbbZrtmOedoPN5uvf6lvOWDPN17/Ut5sAAAAAAAAAAAAAAAAAAARsaJpd9EmbY9kxaP3Utz1s+ADp8t5OCniOWsnBTxOYA6fLWTgp4jlrJwU8TmAOny1k4KeI5aycFPE5gDp8tZOCniY5NcZbxNaxWkz/vrE70fBzgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/9k=
+      return images("./" + picname + ".jpeg");
+    },
   },
 };
 </script>

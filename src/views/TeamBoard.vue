@@ -83,6 +83,32 @@ export default {
           newTasks: [],
         },
         {
+          id: 2115433,
+          user: {
+            id: 32342,
+            name: "שקד",
+            img: "Shaked",
+            lastName: "Sibony",
+            address: "",
+            phoneNumber: 1020,
+            // imagin there is match more fields in user object
+          },
+          // I think it will be correct to create tasks and sub tasks
+          //so the parrent task will be connected to JIRA
+          preTasks: [
+            {
+              id: 884569,
+              taskText: "תורנות רסר",
+            },
+            {
+              id: 8082739,
+              taskText: "לירות בדולב",
+            },
+          ],
+          // empty for now because i want to insert the new task in th GUI later
+          newTasks: [],
+        },
+        {
           id: 2118,
           user: {
             id: 32,
