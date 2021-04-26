@@ -1,31 +1,39 @@
 <template>
-  <div id="page" class="card mb-3">
-    <img :src="getImgUrl(pic)" alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">{{title}}</h5>
-      <p class="card-text">
-        {{desc}}
-      </p>
-      <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </p>
+  <div id="stund-up-run-single-page">
+    <div id="page" class="card mb-3">
+      <img :src="getImgUrl(pic)" alt="Card image cap" />
+      <div class="card-body">
+        <h5 class="card-title">{{ title }}</h5>
+        <p class="card-text">
+          {{ desc }}
+        </p>
+        <p class="card-text">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </p>
+      </div>
     </div>
+    <!-- TODO - Check why -->
+    <timer></timer>
   </div>
 </template>
 
 <script>
+import timer from "./Timer.vue";
 export default {
   name: "StandUpRunSinglePage",
+  components: {
+    timer,
+  },
   data() {
     return {
       pic1:
         "https://images.auto.co.il/Attachment/Gallery/240316/1606183/DBS%2059%20%286%29.jpg?width=556",
     };
   },
-  props : {
-    title : String,
-    desc : String,
-    pic : String
+  props: {
+    title: String,
+    desc: String,
+    pic: String,
   },
   mounted() {
     //document.body.className = "block";
@@ -58,15 +66,14 @@ img {
   height: 100% !important;
   width: 100% !important;
   background-color: #17a2b8;
-  
 }
-.card-body{
+.card-body {
   margin-top: 150px;
   height: 100% !important;
-  color : white !important;
+  color: white !important;
 }
 .card-title {
-  font-size : 30px !important;
-  color : white !important;
+  font-size: 30px !important;
+  color: white !important;
 }
 </style>

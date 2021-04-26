@@ -1,0 +1,187 @@
+<template>
+  <div id="timer">
+    <div class="base-timer">
+      <svg
+        class="base-timer__svg"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g class="base-timer__circle">
+          <circle
+            class="base-timer__path-elapsed"
+            cx="50"
+            cy="50"
+            r="45"
+          ></circle>
+          <path
+            id="base-timer-path-remaining"
+            stroke-dasharray="283"
+            :class="'base-timer__path-remaining ' + this.COLOR_CODES.info.color"
+            d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+          ></path>
+        </g>
+      </svg>
+      <span id="base-timer-label" class="base-timer__label">{{
+        formatTime()
+      }}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "timer",
+  data() {
+    return {
+      COLOR_CODES: {
+        info: {
+          color: "green",
+        },
+        warning: {
+          color: "orange",
+          threshold: 10,
+        },
+        alert: {
+          color: "red",
+          threshold: 5,
+        },
+      },
+      FULL_DASH_ARRAY: 283,
+      TIME_LIMIT: 20,
+      timePassed: 0,
+      timeLeft: this.TIME_LIMIT,
+      timerInterval: null,
+    };
+  },
+  mounted() {
+    this.timerInterval = setInterval(() => {
+      this.timePassed = this.timePassed += 1;
+      this.timeLeft = this.TIME_LIMIT - this.timePassed;
+      document.getElementById("base-timer-label").innerHTML = this.formatTime(
+        this.timeLeft
+      );
+      this.setCircleDasharray();
+      this.setRemainingPathColor(this.timeLeft);
+
+      if (this.timeLeft === 0) {
+        this.onTimesUp();
+      }
+    }, 1000);
+  },
+  methods: {
+    formatTime() {
+      const minutes = Math.floor(this.timeLeft / 60);
+      let seconds = this.timeLeft % 60;
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
+
+      return `${minutes}:${seconds}`;
+    },
+    setCircleDasharray() {
+      const circleDasharray = `${(
+        this.calculateTimeFraction() * this.FULL_DASH_ARRAY
+      ).toFixed(0)} 283`;
+      document
+        .getElementById("base-timer-path-remaining")
+        .setAttribute("stroke-dasharray", circleDasharray);
+    },
+    calculateTimeFraction() {
+      const rawTimeFraction = this.timeLeft / this.TIME_LIMIT;
+      return rawTimeFraction - (1 / this.TIME_LIMIT) * (1 - rawTimeFraction);
+    },
+    setRemainingPathColor(timeLeft) {
+      const { alert, warning, info } = this.COLOR_CODES;
+      console.log(this.COLOR_CODES)
+      if (timeLeft <= alert.threshold) {
+        console.log(
+          "before" +
+            document.getElementById("base-timer-path-remaining").classList
+        );
+        document
+          .getElementById("base-timer-path-remaining")
+          .classList.remove(warning.color);
+        document
+          .getElementById("base-timer-path-remaining")
+          .classList.add(alert.color);
+
+        console.log(
+          "after" +
+            document.getElementById("base-timer-path-remaining").classList
+        );
+      } else if (timeLeft <= warning.threshold) {
+        document
+          .getElementById("base-timer-path-remaining")
+          .classList.remove(info.color);
+        document
+          .getElementById("base-timer-path-remaining")
+          .classList.add(warning.color);
+      }
+    },
+    onTimesUp() {
+      clearInterval(this.timerInterval);
+    },
+  },
+  computed: {},
+};
+</script>
+
+<style scoped>
+.base-timer {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.green {
+  color: rgb(65, 184, 131);
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+</style>
